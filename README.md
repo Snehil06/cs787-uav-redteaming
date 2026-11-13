@@ -1,20 +1,40 @@
-# CS787 Project Submission: Closed-Loop Diffusion Red-Teaming for UAV Path Planners
+# Generative AI-Based Red-Teaming for Autonomous UAV Navigation
 
-Snehil Chatterjee. Base paper: DiffScene (Xu et al., ICML 2023 AdvML-Frontiers workshop; AAAI 2025).
+CS787 course project, Snehil Chatterjee. Base paper: DiffScene (Xu et al., ICML 2023 AdvML-Frontiers workshop;
+AAAI 2025).
 
 | folder | contents |
 |---|---|
-| [`report/`](report/) | **[report.pdf](report/report.pdf)**: the project report, written as a 6-page research paper |
-| [`results/`](results/) | all experimental outputs, one folder per stage, plus the [demo video](results/demo.mp4) and a plain-language [FINAL_REPORT.md](results/FINAL_REPORT.md). Start at [results/README.md](results/README.md) |
-| [`code/`](code/) | the complete source code that produces everything in `results/` and `report/`. See [code/README.md](code/README.md) |
+| [`report/`](report/) | **[report.pdf](report/report.pdf)**: the project report, written as a research paper |
+| [`results/`](results/) | all experimental outputs, one folder per experiment, plus the [demo video](results/demo.mp4) and a plain-language [FINAL_REPORT.md](results/FINAL_REPORT.md) |
+| [`code/`](code/) | the complete source code that produces everything in `results/` and `report/` ([code/README.md](code/README.md)) |
 
-## What the project does
+## How to go through this repository
 
-A conditional diffusion model generates scenarios (obstacles, wind, sensing limits) that make an unmodified
-open-source RRT / RRT\* UAV planner fail. A simulator decides what happens. Each failure is re-flown with one
-factor changed at a time to measure *why* it happened, an LLM (Gemini) explains it under a citation check,
-and the measured causes drive targeted fixes to the planner stack, which is then attacked again.
-Scenario statistics follow real data (Stanford Drone Dataset obstacle speeds, NOAA wind records).
+**In 5 minutes**
+
+1. Read the headline results below.
+2. Watch [`results/demo.mp4`](results/demo.mp4) (2.5 minutes): example crashes and the main charts.
+
+**In 30 minutes**
+
+3. Read [`report/report.pdf`](report/report.pdf). Appendix A of the report lists, with links, where each
+   section's results and code live.
+4. For any section you want to check, open its results folder (table below). Every results folder has the
+   same layout:
+   - `README.md`: what the experiment asks, how it was run, and what it found, in plain language
+   - `1_runs/`: pictures and videos of individual flights
+   - `2_results/`: the charts and the CSV tables behind them
+   - `3_crash_reasons/`: measured causes and explanations of individual failures (where relevant)
+
+**To look at or run the code**
+
+5. Read [`code/README.md`](code/README.md): folder layout, setup, and the one command per experiment.
+   The code folders follow the pipeline in Figure 1 of the report:
+   `scenarios/` → `generators/` → `sim/` + `planners/` → `loop/` → `analyst/`, with `experiments/`
+   holding one script per experiment.
+6. To reproduce everything: `python -m experiments.run_all --fresh` from inside `code/` (about 2.5 hours;
+   only the LLM stage needs a Gemini API key).
 
 ## Headline results (2,000 simulated flights per run, mean of 3 seeds)
 
@@ -31,14 +51,21 @@ Scenario statistics follow real data (Stanford Drone Dataset obstacle speeds, NO
 - Fixes derived from the measured causes survive 79% of past failures and cut the failure rate from 12.0% to
   4.7%; re-attacking, the red team still finds 2.1x more failures than random sampling.
 
-## How the results map to the report
+## Where each part of the report lives
 
-| report section | results folder |
-|---|---|
-| 4.1 Simulator, real-data prior; Fig. 2 | [`results/01_random_baseline/`](results/01_random_baseline/) |
-| 5.2 Why diffusion rather than a VAE (Table 2, Fig. 4a) | [`results/02_generators/`](results/02_generators/) |
-| 5.3 Does feedback help? (Fig. 4b) | [`results/03_red_team_loop/`](results/03_red_team_loop/) |
-| 5.4 LLM faithfulness (Table 3, Fig. 5) | [`results/04_llm_analyst/`](results/04_llm_analyst/) |
-| 5.1 Main comparison (Table 1, Fig. 3) | [`results/05_comparison/`](results/05_comparison/) |
-| 5.5 Are the failures real? | [`results/06_fidelity_checks/`](results/06_fidelity_checks/) |
-| 5.6 Harden and re-attack (Table 4) | [`results/07_harden_and_reattack/`](results/07_harden_and_reattack/) |
+| report section | results | main code |
+|---|---|---|
+| 4.1 Simulator and real-data prior; Fig. 2 | [`results/01_random_baseline/`](results/01_random_baseline/) | [`code/sim/`](code/sim/), [`code/scenarios/`](code/scenarios/) |
+| 4.2, 5.2 Diffusion vs. VAE (Table 2, Fig. 4a) | [`results/02_generators/`](results/02_generators/) | [`code/generators/`](code/generators/) |
+| 4.3, 5.3 Closed loop, does feedback help? (Fig. 4b) | [`results/03_red_team_loop/`](results/03_red_team_loop/) | [`code/loop/`](code/loop/) |
+| 4.4–4.5, 5.4 Measured causes, LLM faithfulness (Table 3, Fig. 5) | [`results/04_llm_analyst/`](results/04_llm_analyst/) | [`code/analyst/`](code/analyst/) |
+| 5.1 Main comparison (Table 1, Fig. 3) | [`results/05_comparison/`](results/05_comparison/) | [`code/experiments/run_comparison.py`](code/experiments/run_comparison.py) |
+| 5.5 Are the failures real? | [`results/06_fidelity_checks/`](results/06_fidelity_checks/) | [`code/experiments/run_fidelity.py`](code/experiments/run_fidelity.py) |
+| 5.6 Harden and re-attack (Table 4) | [`results/07_harden_and_reattack/`](results/07_harden_and_reattack/) | [`code/experiments/run_hardening.py`](code/experiments/run_hardening.py) |
+
+## Sources
+
+- Planner: [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics) (Sakai et al., MIT licence), vendored unmodified.
+- Obstacle speeds: Stanford Drone Dataset (Robicquet et al., ECCV 2016), via [OpenTraj](https://github.com/crowdbotp/OpenTraj).
+- Wind: [NOAA Integrated Surface Database](https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database), station 72494023234 (San Francisco Intl.), 2023.
+- LLM: [Google Gemini API](https://ai.google.dev), free tier (`gemini-3.1-flash-lite`).

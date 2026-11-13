@@ -60,8 +60,25 @@ S = {
 }
 
 
+S["bodyl"] = ParagraphStyle("bodyl", parent=S["body0"], alignment=TA_LEFT)
+
+
 def P(text, style="body"):
     return Paragraph(text, S[style])
+
+
+REPO = "https://github.com/Snehil06/cs787-uav-redteaming"
+
+
+def link(url, text=None):
+    """Clickable hyperlink in the paper's link colour."""
+    return f'<a href="{url}" color="#1f4e8c">{text or url}</a>'
+
+
+def repo(path, text=None):
+    """Link to a folder or file in the GitHub repository."""
+    kind = "blob" if "." in path.rsplit("/", 1)[-1] else "tree"
+    return link(f"{REPO}/{kind}/main/{path}", text or path)
 
 
 def H1(text):
@@ -139,7 +156,7 @@ def algorithm():
 
 
 # ------------------------------------------------------------------------------------------------ layout
-TITLE_H = 4.3 * inch          # title block + teaser figure on page 1
+TITLE_H = 3.8 * inch          # title block + teaser figure on page 1
 def _wide_h():
     from PIL import Image as PILImage
     w, h = PILImage.open(os.path.join(FIG, "fig2_example.png")).size
@@ -178,7 +195,7 @@ def wide_figure_page(canv, doc):
 
 def build(story):
     doc = BaseDocTemplate(OUT, pagesize=letter, leftMargin=M, rightMargin=M, topMargin=M, bottomMargin=M,
-                          title="Closed-Loop Diffusion Red-Teaming for UAV Path Planners",
+                          title="Generative AI-Based Red-Teaming for Autonomous UAV Navigation",
                           author="Snehil Chatterjee", subject="CS787 course project report")
     body_h = PH - 2 * M
     first = [Frame(M, PH - M - TITLE_H, FULLW, TITLE_H, id="title", leftPadding=0, rightPadding=0,
@@ -205,11 +222,11 @@ def content():
     st = []
     # ---- title block (full width) + teaser figure
     st += [Spacer(1, 2),
-           P("Closed-Loop Diffusion Red-Teaming for UAV Path Planners:<br/>"
-             "Generating, Explaining and Fixing Navigation Failures", "title"),
+           P("Generative AI-Based Red-Teaming for<br/>Autonomous UAV Navigation", "title"),
            Spacer(1, 8),
            P("Snehil Chatterjee", "author"),
            P("CS787 Course Project &nbsp;\u00b7&nbsp; snehilchatterjee1@gmail.com", "affil"),
+           P(f"Code, results and data: {link(REPO)}", "affil"),
            Spacer(1, 10)]
     p = os.path.join(FIG, "fig1_overview.png")
     from PIL import Image as PILImage
@@ -220,7 +237,8 @@ def content():
              "and winds follow real data, generates scenarios for an unmodified RRT/RRT* UAV planner. Simulated "
              "failures fill a de-duplicated buffer that fine-tunes the generator each round. Every failure is "
              "re-flown under single-factor interventions to measure its causes, which a grounded LLM turns into "
-             "explanations and which guide targeted hardening; the hardened system is then attacked again.", "cap"),
+             "explanations and which guide targeted hardening; the hardened system is then attacked again. Shaded "
+             "blocks form the closed red-teaming loop (Algorithm 1).", "cap"),
            NextPageTemplate("two"), FrameBreak()]
 
     # ---- abstract
@@ -518,6 +536,15 @@ def content():
              "are 3D dynamics, wind fields learned from more stations, and guidance with a learned failure critic as "
              "in DiffScene.", "body0")]
 
+    # ---- availability
+    st += [H1("Code and Data Availability"),
+           P(f"All code, trained-model recipes, results and the demo video are at {link(REPO)}. "
+             f"Appendix A lists where each part of this paper lives in the repository. The planner is "
+             f"PythonRobotics ({link('https://github.com/AtsushiSakai/PythonRobotics')}); obstacle speeds come from "
+             f"the Stanford Drone Dataset via OpenTraj ({link('https://github.com/crowdbotp/OpenTraj')}); wind comes "
+             f"from NOAA ISD ({link('https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database')}"
+             f"); the LLM is the Gemini API ({link('https://ai.google.dev')}).", "bodyl")]
+
     # ---- references
     st += [H1("References")]
     refs = [
@@ -574,6 +601,42 @@ def content():
         "Scenario Generation for Autonomous Vehicles. In <i>2nd AdvML-Frontiers Workshop at ICML</i>.",
     ]
     st += [P(r, "ref") for r in refs]
+
+    # ---- appendix: repository guide
+    R = "results/"
+    rows = [["Path (link)", "What it contains"],
+            [repo("README.md"), "Start here: overview, headline numbers, map from paper sections to results"],
+            [repo("report/report.pdf"), "This paper"],
+            [repo("results/demo.mp4"), "2.5-minute video: example flights and the main results"],
+            [repo("results/README.md"), "Index of all results, stage by stage"],
+            [repo(R + "01_random_baseline"), "Random baseline and the real-data scenario prior (Sec. 4.1, Fig. 2)"],
+            [repo(R + "02_generators"), "Diffusion vs. cVAE: validity, realism, steering (Sec. 5.2, Table 2)"],
+            [repo(R + "03_red_team_loop"), "Effect of feedback fine-tuning, per round (Sec. 5.3)"],
+            [repo(R + "04_llm_analyst"), "LLM ablation and every explanation with its score (Sec. 5.4, Table 3)"],
+            [repo(R + "05_comparison"), "Main comparison of all methods (Sec. 5.1, Table 1, Fig. 3)"],
+            [repo(R + "06_fidelity_checks"), "Finer time steps and RRT* transfer (Sec. 5.5)"],
+            [repo(R + "07_harden_and_reattack"), "Hardening, side effects, re-attack (Sec. 5.6, Table 4)"],
+            [repo("code/README.md"), "Setup and the command for every stage"],
+            [repo("code/scenarios"), "Scenario vector, validity and fairness rules, real-data statistics"],
+            [repo("code/sim/simulator.py"), "2D UAV simulator (dynamics, wind, delayed sensing, replanning)"],
+            [repo("code/planners"), "Unmodified PythonRobotics RRT / RRT* and its adapter"],
+            [repo("code/generators/diffusion.py"), "Conditional DDPM with classifier-free guidance (Sec. 4.2)"],
+            [repo("code/generators"), "Also the cVAE and CMA-ES baselines"],
+            [repo("code/loop/scoring.py"), "Failure score F (Eq. 1)"],
+            [repo("code/loop/redteam.py"), "Closed red-teaming loop (Sec. 4.3, Algorithm 1)"],
+            [repo("code/loop/metrics.py"), "Distinct failures, coverage, failure types"],
+            [repo("code/analyst"), "Counterfactual re-runs, evidence records, Gemini analyst, grounding check (Sec. 4.4-4.5)"],
+            [repo("code/experiments/run_all.py"), "Runs the whole pipeline in order (about 2.5 h)"]]
+    st += [CondPageBreak(2.5 * inch), H1("Appendix A &nbsp;Repository Guide"),
+           P("The repository has three folders. <b>report/</b> holds this paper. <b>results/</b> holds one folder "
+             "per experiment; inside each, <i>1_runs</i> has flight pictures and videos, <i>2_results</i> the "
+             "charts and CSV tables, and <i>3_crash_reasons</i> the measured causes and explanations of individual "
+             "failures. <b>code/</b> holds the full source, laid out as in Figure 1. A quick tour: read the "
+             "top-level README, watch the demo video, then open the results folder of any section of interest. "
+             "All paths below are links.", "body0"),
+           Spacer(1, 4),
+           booktabs(rows, [1.62 * inch, COLW - 1.62 * inch], "<b>Table A1:</b> Where to find each part of the "
+                    "paper in the repository.", left_cols=(0, 1), font=7.5)]
     return st
 
 

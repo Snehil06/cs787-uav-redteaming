@@ -1,4 +1,4 @@
-"""Compact, paper-style figures for paper/report.pdf, drawn from the same data as reports/.
+﻿"""Compact, paper-style figures for paper/report.pdf, drawn from the same data as reports/.
 
     python -m tools.paper_figures      # writes paper/figures/*.png
 """
@@ -38,38 +38,45 @@ def style():
 
 
 def overview():
-    fig, ax = plt.subplots(figsize=(7.0, 2.3))
-    ax.set_xlim(-1, 121.5), ax.set_ylim(-1, 36), ax.axis("off")
-    # (x, y, w, h, text, colour); columns: data | generator | simulator | causes | LLM
-    boxes = [
-        (0, 22, 19, 12, "Real data\nSDD obstacle speeds\nNOAA wind, gusts", "#f2f2f2"),
-        (0, 4, 19, 12, "Procedural scenarios\n(10k, real statistics)\n+ validity rules", "#f2f2f2"),
-        (26, 13, 21, 14, "Conditional diffusion\ngenerator\n(DDPM + CFG,\ncond. on difficulty)", "#dbe7f5"),
-        (54, 13, 21, 14, "2D UAV simulator\nRRT / RRT* planner\n(unmodified), wind,\ndelayed noisy sensing", "#fbe3d6"),
-        (54, 0, 21, 8, "Failure buffer\n(distinct, F ≥ 0.5)", "#e3f1e7"),
-        (82, 13, 17, 14, "Counterfactual\nre-runs (6 single-\nfactor changes)\n= measured causes", "#efe6f5"),
-        (103, 13, 17, 14, "Grounded LLM\nanalyst (Gemini)\n+ citation check", "#efe6f5"),
-        (82, 0, 38, 8, "Targeted hardening of the planner stack,\nthen re-attack the hardened system", "#f7f0d4"),
-    ]
-    for x, y, w, h, txt, fc in boxes:
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.2,rounding_size=1.0",
-                                    fc=fc, ec="#333333", lw=0.6))
-        ax.text(x + w / 2, y + h / 2, txt, ha="center", va="center", fontsize=6.3, linespacing=1.3)
+    """Block diagram: one main row (generate -> fly -> explain), two feedback paths below it."""
+    fig, ax = plt.subplots(figsize=(7.0, 1.8))
+    ax.set_xlim(0, 120), ax.set_ylim(0, 31), ax.axis("off")
+    INK, EDGE, OURS = "#222222", "#444444", "#eaf0f8"
+    BW, BH, TOP = 18.0, 11.0, 18.0          # main-row box size and bottom edge
+    cx = [10.5, 34.5, 58.5, 82.5, 106.5]    # main-row box centres
+    main = [("Scenario prior", "real speeds (SDD)\nand wind (NOAA)", "white"),
+            ("Diffusion model", "conditioned on\ndifficulty, CFG", OURS),
+            ("Simulator", "2D UAV, wind;\nRRT / RRT* planner", "white"),
+            ("Counterfactuals", "single-factor\nre-runs", "white"),
+            ("LLM analyst", "Gemini, with\ncitation check", "white")]
 
-    def arrow(a, b, txt=None, rad=0.0, tx=0.0, ty=0.0):
-        ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=7, lw=0.7, color="#333333",
-                                     connectionstyle=f"arc3,rad={rad}"))
-        if txt:
-            ax.text((a[0] + b[0]) / 2 + tx, (a[1] + b[1]) / 2 + ty, txt, ha="center", va="center",
-                    fontsize=6, style="italic", color="#333333")
-    arrow((9.5, 21.7), (9.5, 16.4))
-    arrow((19.4, 10), (25.6, 16), "train", tx=-1.8, ty=5.0)
-    arrow((47.4, 20), (53.6, 20))
-    arrow((75.4, 20), (81.6, 20))
-    arrow((99.4, 20), (102.6, 20))
-    arrow((64.5, 12.7), (64.5, 8.4))
-    arrow((53.6, 3), (38, 12.6), "fine-tune\n(5 rounds)", rad=-0.3, tx=-6.5, ty=-5.5)
-    arrow((111.5, 12.7), (111.5, 8.4))
+    def box(x0, y0, w, h, title, body, fc):
+        ax.add_patch(FancyBboxPatch((x0, y0), w, h, boxstyle="square,pad=0", fc=fc, ec=EDGE, lw=0.7))
+        ax.text(x0 + w / 2, y0 + h * 0.72, title, ha="center", va="center", fontsize=6.8, weight="bold", color=INK)
+        ax.text(x0 + w / 2, y0 + h * 0.33, body, ha="center", va="center", fontsize=5.7, color=INK,
+                linespacing=1.25)
+
+    def path(pts, label=None, lx=0.0, ly=0.0, ha="center"):
+        xs, ys = zip(*pts)
+        ax.plot(xs[:-1], ys[:-1], color=EDGE, lw=0.7, solid_capstyle="butt")
+        ax.add_patch(FancyArrowPatch(pts[-2], pts[-1], arrowstyle="-|>", mutation_scale=6.5, lw=0.7,
+                                     color=EDGE, shrinkA=0, shrinkB=0))
+        if label:
+            ax.text(lx, ly, label, ha=ha, va="center", fontsize=5.9, style="italic", color=INK)
+
+    for c, (t, b, fc) in zip(cx, main):
+        box(c - BW / 2, TOP, BW, BH, t, b, fc)
+    for i in range(len(cx) - 1):
+        path([(cx[i] + BW / 2, TOP + BH / 2), (cx[i + 1] - BW / 2, TOP + BH / 2)])
+
+    # feedback 1: failure buffer -> fine-tune the generator (the red-teaming loop)
+    box(37.5, 2.0, 18.0, 9.0, "Failure buffer", "distinct, F ≥ 0.5", OURS)
+    path([(53.0, TOP), (53.0, 11.0)])
+    path([(37.5, 6.5), (30.0, 6.5), (30.0, TOP)], "fine-tune\n(5 rounds)", 28.8, 11.5, ha="right")
+    # feedback 2: measured causes -> hardened stack -> attacked again
+    box(73.5, 2.0, 42.0, 9.0, "Hardening", "fixes for the measured causes", "white")
+    path([(cx[4], TOP), (cx[4], 11.0)])
+    path([(73.5, 6.5), (64.0, 6.5), (64.0, TOP)], "re-attack", 65.2, 12.5, ha="left")
     fig.savefig(os.path.join(OUT, "fig1_overview.png"))
     plt.close(fig)
 
