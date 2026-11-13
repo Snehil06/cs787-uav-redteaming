@@ -27,6 +27,12 @@ STAGES = [
     ("LLM ablation", ["-m", "experiments.run_llm_ablation", "--n", "50"]),
     ("fidelity checks", ["-m", "experiments.run_fidelity"]),
     ("harden and re-attack", ["-m", "experiments.run_hardening"]),
+    ("DiffScene critic", ["-m", "experiments.run_diffscene", "critic"]),
+    ("DiffScene runs", ["-m", "experiments.run_diffscene", "run", "--alpha", "3"]),
+    ("DiffScene tuning sweep", ["-m", "experiments.tune_diffscene", "stage1"]),
+    ("DiffScene tuned runs", ["-m", "experiments.run_diffscene_tuned"]),
+    ("DiffScene report", ["-m", "experiments.report_diffscene"]),
+    ("case study", ["-m", "experiments.case_study"]),
 ]
 
 

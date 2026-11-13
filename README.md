@@ -37,7 +37,7 @@ AAAI 2025).
    The code folders follow the pipeline in Figure 1 of the report:
    `scenarios/` → `generators/` → `sim/` + `planners/` → `loop/` → `analyst/`, with `experiments/`
    holding one script per experiment.
-7. To reproduce everything: `python -m experiments.run_all --fresh` from inside `code/` (about 2.5 hours;
+7. To reproduce everything: `python -m experiments.run_all --fresh` from inside `code/` (about 5 hours;
    only the LLM stage needs a Gemini API key).
 
 ## Headline results (2,000 simulated flights per run, mean of 3 seeds)

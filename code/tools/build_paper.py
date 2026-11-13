@@ -674,7 +674,7 @@ def content():
             [repo("code/loop/redteam.py"), "Closed red-teaming loop (Sec. 4.3, Algorithm 1)"],
             [repo("code/loop/metrics.py"), "Distinct failures, coverage, failure types"],
             [repo("code/analyst"), "Counterfactual re-runs, evidence records, Gemini analyst, grounding check (Sec. 4.4-4.5)"],
-            [repo("code/experiments/run_all.py"), "Runs the whole pipeline in order (about 2.5 h)"]]
+            [repo("code/experiments/run_all.py"), "Runs the whole pipeline in order (about 5 h)"]]
     st += [CondPageBreak(2.5 * inch), H1("Appendix A &nbsp;Repository Guide"),
            P("The repository has three folders. <b>report/</b> holds this paper. <b>results/</b> holds one folder "
              "per experiment; inside each, <i>1_runs</i> has flight pictures and videos, <i>2_results</i> the "

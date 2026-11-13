@@ -33,7 +33,7 @@ set GEMINI_API_KEY=...                 # free key from https://aistudio.google.c
 python -m experiments.run_all --fresh
 ```
 
-About 2.5 hours on an 8-core CPU with a GPU. It writes simulation data to `data/`, trained models to
+About 5 hours on an 8-core CPU with a GPU. It writes simulation data to `data/`, trained models to
 `models/` and all outputs to `reports/` (the same content as `../results/`). Progress is logged to
 `data/run_all.log`; running `python -m experiments.run_all` again resumes after the last finished stage.
 
