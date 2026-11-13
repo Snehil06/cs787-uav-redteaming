@@ -23,7 +23,8 @@ OUT = os.path.join(ROOT, "paper", "figures")
 BLUE, ORANGE, GREEN, GREY, RED = "#1f5fa8", "#d9622b", "#2e8b57", "#8a8a8a", "#b23a3a"
 METHODS = [("random", "Random", GREY, ":"), ("cmaes", "CMA-ES", "#555555", "--"),
            ("cvae+feedback", "cVAE + fb", GREEN, "-."), ("diffusion", "Diffusion", ORANGE, "-"),
-           ("diffusion+feedback", "Diffusion + fb (ours)", BLUE, "-")]
+           ("diffusion+feedback", "Diffusion + fb (ours)", BLUE, "-"),
+           ("diffscene", "DiffScene-style", RED, "--"), ("diffscene-tuned", "DiffScene-style, tuned", RED, "-")]
 
 
 def style():
@@ -96,9 +97,9 @@ def discovery():
             curves.append(np.cumsum(distinct_mask(pd.read_parquet(f))))
         n = min(len(c_) for c_ in curves)
         m = np.mean([c_[:n] for c_ in curves], axis=0)
-        ax.plot(np.arange(1, n + 1), m, color=c, ls=ls, lw=1.8 if "ours" in label else 1.2, label=label)
+        ax.plot(np.arange(1, n + 1), m, color=c, ls=ls, lw=1.8 if "ours" in label or "tuned" in label else 1.2, label=label)
     ax.set_xlabel("simulated flights"), ax.set_ylabel("distinct failures found")
-    ax.legend(loc="upper left")
+    ax.legend(loc="upper left", frameon=True, facecolor="white", edgecolor="none", framealpha=0.92, fontsize=6.5)
     fig.savefig(os.path.join(OUT, "fig3_discovery.png"))
     plt.close(fig)
 

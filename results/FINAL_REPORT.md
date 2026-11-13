@@ -121,8 +121,16 @@ Six methods, 2,000 flights each, 3 seeds (mean ± std):
 ![Discovery curves](05_comparison/2_results/02_discovery_curves.png)
 
 CMA-ES produces the most raw failures but 31% of them are near-duplicates, and 88% are wind-only failures in
-one corner of the space (slow UAV, strong wind). Diffusion + feedback combines the most distinct failures
+one corner of the space (slow UAV, strong wind). Among these methods, diffusion + feedback combines the most distinct failures
 with broad coverage.
+
+**Comparison with DiffScene-style gradient guidance** (`09_diffscene_baseline/`, report Sec. 5.7). The base
+paper's own steering, re-implemented as gradient ascent on a learned failure critic during denoising and tuned
+on a separate pilot seed, finds 1,245 ± 14 distinct failures per 2,000 flights (2.3x ours), with a fair share of
+unavoidable failures (5.6%). But it covers 57 regions (ours 109), finds 22 types in its first 200 failures (ours
+35), and only 23% of its samples are valid (ours 80%). Gradient guidance wins on targeting; classifier-free
+guidance with feedback wins on diversity and realism. The best DiffScene variant uses our CFG prior, so the two
+are complementary.
 
 ![Failure types by method](05_comparison/3_crash_reasons/01_failure_types_by_method.png)
 

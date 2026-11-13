@@ -271,7 +271,10 @@ def content():
              "counterfactuals raise the LLM's recall of true causes from 34% to 96%, whereas retrieving similar past "
              "cases does not help. Fixes derived from the measured causes survive 79% of past failures and cut the "
              "failure rate from 12.0% to 4.7%; re-attacking the hardened system, our red team still finds 2.1\u00d7 "
-             "more failures than random sampling.", "abs"),
+             "more failures than random sampling. We also re-implement DiffScene's own steering, gradient ascent on a "
+             "learned failure critic during denoising, as a second generator: it finds 2.3\u00d7 more distinct "
+             "failures (1,245) but covers half as much of the scenario space, with 23% valid samples against our 80%, "
+             "so the two methods offer complementary strengths.", "abs"),
            Spacer(1, 4)]
 
     # ---- 1 Introduction
@@ -301,7 +304,9 @@ def content():
         "measures which evidence makes its explanations faithful.",
         "<b>Closing the loop.</b> The measured causes drive four targeted fixes; we measure regression, side "
         "effects and a re-attack of the hardened system.",
-    ])
+        "<b>A head-to-head comparison with DiffScene-style gradient guidance</b> through a learned critic, tuned on "
+        "a separate pilot seed, showing a trade-off between the number of failures found and their diversity "
+        "and realism."])
 
     # ---- 2 Related work
     st += [H1("2 &nbsp;Related Work"),
@@ -395,14 +400,28 @@ def content():
              "failures retrieved by k-nearest neighbours from the failure library together with their measured types. "
              "Gemini (gemini-3.1-flash-lite, free tier) must return JSON naming factors from a fixed vocabulary, each "
              "citing the evidence field that supports it. A script rejects citations of missing fields and of the "
-             "retrieved cases; the simulator, never the LLM, decides the outcome.", "body0")]
+             "retrieved cases; the simulator, never the LLM, decides the outcome.", "body0"),
+           H2("4.6 &nbsp;DiffScene-Style Baseline"),
+           P("To compare against the base paper's own steering mechanism we re-implement it on our trained "
+             "diffusion model. Because our planner is not differentiable, the adversarial objective is a learned "
+             "critic J<sub>\u03c6</sub>(x) \u2248 F (an MLP trained on the 10,000 seed flights; held-out AUC 0.80 for "
+             "failure). At every reverse step the predicted clean scenario x\u0302<sub>0</sub> takes three "
+             "gradient-ascent steps", "body0"),
+           eq("x\u0302<sub>0</sub> \u2190 x\u0302<sub>0</sub> + \u03b1 grad[J<sub>\u03c6</sub>(x\u0302<sub>0</sub>) "
+              "\u2212 \u03bb||x\u0302<sub>0</sub> \u2212 x\u0302<sub>0</sub><super>prior</super>||<super>2</super>]", 6),
+           P("and is then re-noised; the proximal term plays the role of DiffScene's constraint objective. The plain "
+             "version uses the unconditional prior with \u03b1 = 3. A tuning sweep of 14 variants on a separate pilot "
+             "seed (classifier critic, critic ensembles, normalised gradients, a validity term, late guidance, a "
+             "classifier-free-guided prior) selected the <i>tuned</i> version: our CFG prior (F = 1, w = 2) with "
+             "\u03b1 = 2 applied only in the last half of the denoising steps.", "body0")]
 
     # ---- 5 Experiments
     st += [NextPageTemplate(["wide", "*", "two"]),
            H1("5 &nbsp;Experiments"),
-           P("<b>Setup.</b> Six methods each fly 2,000 scenarios per run, over three seeds: random sampling of the "
+           P("<b>Setup.</b> Eight methods each fly 2,000 scenarios per run, over three seeds: random sampling of the "
              "procedural generator; CMA-ES maximising F directly over the 46 numbers (population 16, 4 restarts); "
-             "the cVAE and the diffusion model asked for maximum difficulty (w = 2), each with and without feedback. "
+             "the cVAE and the diffusion model asked for maximum difficulty (w = 2), each with and without feedback; "
+             "and the two DiffScene-style generators of Sec. 4.6. "
              "The cVAE (latent 32, \u03b2 = 0.3 with KL warm-up and free bits) was selected by a "
              "four-point \u03b2 sweep after a first version suffered posterior collapse.", "body0"),
            P("<b>Metrics.</b> Failures; <i>distinct</i> failures (Eq. 2); <i>coverage</i>, the number of occupied "
@@ -412,19 +431,23 @@ def content():
 
     t1 = [["Method", "Failures", "Distinct", "Cover.", "Types", "To 50th"],
           ["Random", "215\u00b115", "214\u00b115", "112\u00b12", "28\u00b12", "461\u00b151"],
-          ["CMA-ES", "<b>743\u00b1109</b>", "510\u00b171", "31\u00b12", "8\u00b13", "234\u00b151"],
+          ["CMA-ES", "743\u00b1109", "510\u00b171", "31\u00b12", "8\u00b13", "234\u00b151"],
           ["cVAE", "262\u00b14", "216\u00b12", "84\u00b15", "<b>36\u00b14</b>", "374\u00b148"],
           ["cVAE + fb", "295\u00b19", "209\u00b18", "80\u00b13", "35\u00b14", "375\u00b151"],
-          ["Diffusion", "445\u00b119", "445\u00b120", "<b>116\u00b11</b>", "<b>36\u00b13</b>", "<b>230\u00b122</b>"],
-          ["Diff. + fb (ours)", "553\u00b122", "<b>552\u00b121</b>", "109\u00b12", "35\u00b14", "<b>230\u00b122</b>"]]
+          ["Diffusion", "445\u00b119", "445\u00b120", "<b>116\u00b11</b>", "<b>36\u00b13</b>", "230\u00b122"],
+          ["Diff. + fb (ours)", "553\u00b122", "552\u00b121", "109\u00b12", "35\u00b14", "230\u00b122"],
+          ["DiffScene-style", "1203\u00b121", "1197\u00b120", "54\u00b11", "23\u00b11", "84\u00b14"],
+          ["DiffScene, tuned", "<b>1246\u00b114</b>", "<b>1245\u00b114</b>", "57\u00b16", "22\u00b14", "<b>83\u00b18</b>"]]
     st += [booktabs(t1, [0.86 * inch, 0.56 * inch, 0.53 * inch, 0.43 * inch, 0.38 * inch, 0.52 * inch],
                     "<b>Table 1:</b> Method comparison, 2,000 flights per run, mean \u00b1 std over 3 seeds. "
                     "Cover. = occupied cells of 384; Types = failure types among the first 200 failures; To 50th = "
-                    "flights until the 50th distinct failure.", bold_rows=(6,))]
+                    "flights until the 50th distinct failure. DiffScene-style methods: Sec. 4.6 and 5.7.", bold_rows=(6,))]
 
     st += [H2("5.1 &nbsp;Main Comparison"),
-           P("Table 1 and Figure 3 summarise the comparison. Diffusion with feedback finds the most distinct "
-             "failures (552), 2.6\u00d7 random sampling. CMA-ES finds the most <i>raw</i> failures (743), but 31% of "
+           P("Table 1 and Figure 3 summarise the comparison; the DiffScene-style generators, which find by far the "
+             "most failures, are discussed in Sec. 5.7. Among the other methods, diffusion with feedback finds the "
+             "most distinct failures (552), 2.6\u00d7 random sampling. CMA-ES finds more <i>raw</i> failures (743), "
+             "but 31% of "
              "them are near-duplicates and 88% belong to a single type (wind only, slow UAV in strong wind): it "
              "covers 31 grid cells against our 109 and finds 8 failure types in its first 200 failures against our "
              "35. Its discovery curve also flattens late in the budget, while ours keeps rising (Fig. 3). This mirrors "
@@ -434,7 +457,7 @@ def content():
              "200 failures but finds 2.6\u00d7 fewer distinct failures.", "body0"),
            figure(os.path.join(FIG, "fig3_discovery.png"), COLW,
                   "<b>Figure 3:</b> Cumulative distinct failures as the flight budget is spent (mean of 3 seeds). "
-                  "CMA-ES leads early, then flattens as it exhausts one failure mode."),
+                  "CMA-ES leads early, then flattens as it exhausts one failure mode; DiffScene-style guidance (red) finds the most."),
            H2("5.2 &nbsp;Why Diffusion Rather than a VAE?"),
            P("DiffScene motivated diffusion over VAE priors by realism in the tail of the distribution. Table 2 "
              "reproduces this argument in the UAV domain. Without conditions, 87% of diffusion samples pass the "
@@ -518,6 +541,41 @@ def content():
                     "<b>Table 4:</b> Hardening derived from measured causes: regression on past failures, side "
                     "effects on 3,000 ordinary scenarios, and a re-attack (2 seeds).")]
 
+    t5 = [["", "Ours", "DiffScene", "DS, tuned"],
+          ["Distinct failures", "552", "1197", "<b>1245</b>"],
+          ["Failure rate", "28%", "60%", "<b>62%</b>"],
+          ["Coverage (cells of 384)", "<b>109</b>", "54", "57"],
+          ["Types in first 200 failures", "<b>35</b>", "23", "22"],
+          ["Valid samples", "<b>80%</b>", "17%", "23%"],
+          ["Realism gap (lower is better)", "<b>0.61</b>", "1.03", "0.95"],
+          ["Mean wind (data: 4.4 m/s)", "4.7", "6.4", "6.3"],
+          ["Unavoidable failures", "6.5%", "6.6%", "<b>5.6%</b>"],
+          ["Needs a learned critic", "no", "yes", "yes"]]
+
+    st += [H2("5.7 &nbsp;Comparison with DiffScene-Style Gradient Guidance"),
+           booktabs(t5, [1.6 * inch, 0.5 * inch, 0.6 * inch, 0.6 * inch],
+                    "<b>Table 5:</b> Our method against DiffScene-style guidance (3 seeds, 2,000 flights each); DS = DiffScene-style. "
+                    "Realism gap = mean 1-D Wasserstein distance of seven scenario features to the seed data, in "
+                    "seed standard deviations. Valid = share of generated samples passing the validity rules.",
+                    left_cols=(0,)),
+           P("<b>Strength of DiffScene: targeting.</b> Gradient guidance optimises <i>each</i> sample toward a high "
+             "predicted failure score, so 60% of its flights fail against 28% for ours, and it reaches 50 distinct "
+             "failures in 83 flights against 230. It finds 2.3\u00d7 more distinct failures, and they are fair: "
+             "its share of unavoidable failures (5.6\u20136.6%) is no higher than ours, and no single type dominates "
+             "(34% against 88% for CMA-ES).", "body0"),
+           P("<b>Weakness of DiffScene: narrowness and realism.</b> The critic's gradient points the same way for "
+             "most samples, toward strong wind and fast flight (mean wind 6.3 m/s against 4.4 in the data), so "
+             "its failures fill half as many coverage cells and fewer types. The gradient also pushes samples off "
+             "the data manifold: only 17\u201323% pass the validity rules, and the accepted ones are further from "
+             "the real data. Refitting the critic on its own flights (feedback, as in our loop) made this worse: "
+             "the guidance learned to exploit the critic, validity fell to 4% and distinct failures dropped to 756.", "body0"),
+           P("<b>Strength and weakness of ours.</b> Classifier-free guidance learns \u201chard\u201d jointly with the "
+             "scenario distribution, so our samples stay valid (80%) and realistic and spread over twice the "
+             "scenario space, and the failure-buffer fine-tuning needs no surrogate of the planner. The price is "
+             "weaker targeting: most of our flights succeed. The best DiffScene variant used our CFG prior and "
+             "applied the gradient only late, which suggests the two mechanisms are complementary: CFG chooses a "
+             "diverse, realistic region and the critic gradient sharpens each sample within it.", "body0")]
+
     # ---- 6 Limitations
     st += [H1("6 &nbsp;Limitations"),
            *bullets([
@@ -528,8 +586,11 @@ def content():
                "parameters and the UAV model are synthetic, and the wind comes from one airport.",
                "<b>Residual unavoidable failures.</b> The fairness rule uses the nominal route; 6.5% of our failures "
                "(18% of CMA-ES's) still involve an obstacle appearing within braking time after the UAV drifted.",
-               "<b>Metric choices.</b> The duplicate threshold, coverage grid and type definition are ours; with "
-               "raw failure counts CMA-ES ranks first. Only two failure types were found exclusively by our method.",
+               "<b>Metric choices.</b> The duplicate threshold, coverage grid and type definition are ours. On raw and "
+               "distinct failure counts DiffScene-style guidance ranks first; our method leads on coverage, "
+               "validity and realism.",
+               "<b>Baseline fidelity.</b> Our DiffScene baseline uses a learned critic because the planner is not "
+               "differentiable; DiffScene's original objectives are analytic functions of driving trajectories.",
                "<b>Evaluation scale.</b> Three seeds per method; the LLM was scored automatically on 50 cases with one "
                "model and no human rating.",
            ])]
@@ -538,14 +599,15 @@ def content():
     st += [H1("7 &nbsp;Conclusion"),
            P("We transferred DiffScene's central idea, a diffusion model as a realistic prior for safety-critical "
              "scenario generation, from driving to UAV path planning, and closed the loop from generation to "
-             "explanation to repair. A closed-loop conditional diffusion model finds the most distinct failures of an "
-             "unmodified RRT stack and spreads them over far more of the scenario space than direct search, while "
+             "explanation to repair. A closed-loop conditional diffusion model finds many distinct failures of an "
+             "unmodified RRT stack and spreads them over far more of the scenario space than direct search or "
+             "DiffScene-style gradient guidance, while "
              "remaining valid and realistic where a tuned cVAE does not. Measured counterfactual causes, not "
              "retrieval, make LLM explanations faithful, and they translate into targeted fixes that remove most "
              "known failures. The hardened planner still fails, and the red team still finds those failures twice as "
              "fast as random testing, which is the point of red-teaming as a continuing process. Natural next steps "
-             "are 3D dynamics, wind fields learned from more stations, and guidance with a learned failure critic as "
-             "in DiffScene.", "body0")]
+             "are 3D dynamics, wind fields learned from more stations, and a principled combination of our "
+             "classifier-free guidance with DiffScene's critic gradient, which finds the most failures.", "body0")]
 
     # ---- availability
     st += [H1("Code and Data Availability"),
@@ -600,11 +662,13 @@ def content():
             [repo(R + "05_comparison"), "Main comparison of all methods (Sec. 5.1, Table 1, Fig. 3)"],
             [repo(R + "06_fidelity_checks"), "Finer time steps and RRT* transfer (Sec. 5.5)"],
             [repo(R + "07_harden_and_reattack"), "Hardening, side effects, re-attack (Sec. 5.6, Table 4)"],
+            [repo(R + "09_diffscene_baseline"), "DiffScene-style baseline, tuning sweep and comparison (Sec. 5.7, Table 5)"],
             [repo("code/README.md"), "Setup and the command for every stage"],
             [repo("code/scenarios"), "Scenario vector, validity and fairness rules, real-data statistics"],
             [repo("code/sim/simulator.py"), "2D UAV simulator (dynamics, wind, delayed sensing, replanning)"],
             [repo("code/planners"), "Unmodified PythonRobotics RRT / RRT* and its adapter"],
             [repo("code/generators/diffusion.py"), "Conditional DDPM with classifier-free guidance (Sec. 4.2)"],
+            [repo("code/generators/diffscene.py"), "DiffScene-style critic-gradient guidance (Sec. 4.6)"],
             [repo("code/generators"), "Also the cVAE and CMA-ES baselines"],
             [repo("code/loop/scoring.py"), "Failure score F (Eq. 1)"],
             [repo("code/loop/redteam.py"), "Closed red-teaming loop (Sec. 4.3, Algorithm 1)"],

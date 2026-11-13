@@ -47,7 +47,12 @@ AAAI 2025).
 | Random sampling | 214 | 112 | 28 |
 | CMA-ES search | 510 | 31 | 8 |
 | Conditional VAE + feedback | 209 | 80 | 35 |
-| **Diffusion + feedback (ours)** | **552** | 109 | 35 |
+| **Diffusion + feedback (ours)** | 552 | 109 | **35** |
+| DiffScene-style gradient guidance (tuned) | **1,245** | 57 | 22 |
+
+Two generators, two strengths. DiffScene-style guidance (the base paper's own steering, re-implemented with a
+learned failure critic) finds 2.3x more distinct failures; ours covers twice as much of the scenario space,
+finds more failure types early, and keeps 80% of samples valid against 23% (report Sec. 5.7, Table 5).
 
 - Diffusion is 87% valid vs. 50% for the best cVAE, and 2.1x closer to the real scenario distribution.
 - Measured counterfactuals raise the LLM's recall of true crash causes from 34% (flight log only) to 96%.
@@ -66,6 +71,7 @@ AAAI 2025).
 | 5.1 Main comparison (Table 1, Fig. 3) | [`results/05_comparison/`](results/05_comparison/) | [`code/experiments/run_comparison.py`](code/experiments/run_comparison.py) |
 | 5.5 Are the failures real? | [`results/06_fidelity_checks/`](results/06_fidelity_checks/) | [`code/experiments/run_fidelity.py`](code/experiments/run_fidelity.py) |
 | 5.6 Harden and re-attack (Table 4) | [`results/07_harden_and_reattack/`](results/07_harden_and_reattack/) | [`code/experiments/run_hardening.py`](code/experiments/run_hardening.py) |
+| 4.6 + 5.7 DiffScene-style baseline (Table 5) | [`results/09_diffscene_baseline/`](results/09_diffscene_baseline/) | [`code/generators/diffscene.py`](code/generators/diffscene.py), [`code/experiments/run_diffscene.py`](code/experiments/run_diffscene.py) |
 | Appendix A: one case end to end | [`results/08_case_study/`](results/08_case_study/) | [`code/experiments/case_study.py`](code/experiments/case_study.py) |
 
 ## Sources

@@ -14,6 +14,7 @@ across all runs) → **3_crash_reasons** (why the failures happened).
 | 6 | [06_fidelity_checks/](06_fidelity_checks/) | done | Are the failures real (finer time step, RRT\*)? |
 | 7 | [07_harden_and_reattack/](07_harden_and_reattack/) | done | Can the findings improve the planner, and what breaks it next? |
 | 8 | [08_case_study/](08_case_study/) | done | **One real case end to end** (PDF storyboard + video): crash created, causes measured, LLM explanation, fix, safe re-flight, new crash |
+| 9 | [09_diffscene_baseline/](09_diffscene_baseline/) | done | How does the base paper's own steering (gradient guidance through a learned critic) compare with ours? |
 
 **The report is [../report/report.pdf](../report/report.pdf); a plain-language write-up is [FINAL_REPORT.md](FINAL_REPORT.md); the 2.5-minute demo is [demo.mp4](demo.mp4).**
 
@@ -24,8 +25,11 @@ avoidable in principle.
 
 ## Headline results
 
-- **Diffusion + feedback finds the most distinct failures, across the widest space:** 552 per 2,000 flights
+- **Diffusion + feedback finds many distinct failures across a wide space:** 552 per 2,000 flights
   vs 510 for CMA-ES search and 214 for random sampling, covering 109 regions of scenario space (CMA-ES 31).
+- **DiffScene-style gradient guidance finds the most failures, ours the most diverse and realistic ones:**
+  the tuned DiffScene-style generator finds 1,245 distinct failures but covers 57 regions (ours 109), and only
+  23% of its samples are valid (ours 80%).
 - **CMA-ES finds many failures but mostly one kind:** 88% of them are wind-only failures in one corner of the
   space; in its first 200 failures it finds 8 failure types, ours finds 35.
 - **The feedback loop works for diffusion** (21% to 36% failure rate from round 1 to 5) but barely for the cVAE.
