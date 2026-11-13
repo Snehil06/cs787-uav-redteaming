@@ -236,7 +236,7 @@ def content():
     st += [Spacer(1, 2),
            P("Generative AI-Based Red-Teaming for<br/>Autonomous UAV Navigation", "title"),
            Spacer(1, 8),
-           P("CS787 Course Project", "author"),
+           P("CS787 Course Project (Group 35)", "author"),
            Spacer(1, 2),
            P("Snehil Chatterjee (241026) &nbsp;\u00b7&nbsp; snehil24@iitk.ac.in", "affil"),
            Spacer(1, 7),
