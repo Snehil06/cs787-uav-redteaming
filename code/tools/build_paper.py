@@ -17,6 +17,11 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (BaseDocTemplate, CondPageBreak, Frame, FrameBreak, Image, KeepTogether,
                                 NextPageTemplate, PageTemplate, Paragraph, Spacer, Table, TableStyle)
 
+from reportlab.platypus import paraparser as _pp
+
+# ReportLab's defaults drop subscripts by half the font size, which makes them collide with the next line.
+_pp.subFraction, _pp.supFraction, _pp.sizeDelta = 0.2, 0.38, 3
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIG = os.path.join(ROOT, "paper", "figures")
 OUT = os.path.join(ROOT, "paper", "report.pdf")
@@ -54,7 +59,7 @@ S = {
     "cell": ParagraphStyle("cell", fontName="TNR", fontSize=8, leading=9.4, alignment=TA_CENTER),
     "cell_l": ParagraphStyle("cell_l", fontName="TNR", fontSize=8, leading=9.4, alignment=TA_LEFT),
     "algo": ParagraphStyle("algo", fontName="TNR", fontSize=8.6, leading=10.6, alignment=TA_LEFT),
-    "eq": ParagraphStyle("eq", fontName="TNR", fontSize=9.5, leading=12, alignment=TA_CENTER),
+    "eq": ParagraphStyle("eq", fontName="TNR", fontSize=9.5, leading=13.5, alignment=TA_CENTER),
     "ref": ParagraphStyle("ref", fontName="TNR", fontSize=8.5, leading=10, alignment=TA_JUSTIFY,
                           leftIndent=9, firstLineIndent=-9, spaceAfter=2.2),
 }
