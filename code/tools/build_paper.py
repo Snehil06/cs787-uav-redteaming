@@ -651,7 +651,7 @@ def content():
     R = "results/"
     rows = [["Path (link)", "What it contains"],
             [repo("README.md"), "Start here: overview, headline numbers, map from paper sections to results"],
-            [repo("report/report.pdf"), "This paper"],
+            [repo("report/Group-35_Snehil_Chatterjee_Report.pdf"), "This paper"],
             [repo("results/demo.mp4"), "2.5-minute video: example flights and the main results"],
             [repo("results/08_case_study/case_study.pdf"), "<b>One real case end to end</b>: crash created, causes measured, LLM explanation, fix, re-flown safely, attacked again (also as a video)"],
             [repo("results/README.md"), "Index of all results, stage by stage"],

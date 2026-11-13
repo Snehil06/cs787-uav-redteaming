@@ -5,7 +5,7 @@ AAAI 2025).
 
 | folder | contents |
 |---|---|
-| [`report/`](report/) | **[report.pdf](report/report.pdf)**: the project report, written as a research paper |
+| [`report/`](report/) | **[Group-35_Snehil_Chatterjee_Report.pdf](report/Group-35_Snehil_Chatterjee_Report.pdf)**: the project report, written as a research paper |
 | [`results/`](results/) | all experimental outputs, one folder per experiment, plus the [demo video](results/demo.mp4) and a plain-language [FINAL_REPORT.md](results/FINAL_REPORT.md) |
 | [`code/`](code/) | the complete source code that produces everything in `results/` and `report/` ([code/README.md](code/README.md)) |
 
@@ -22,7 +22,7 @@ AAAI 2025).
 
 **In 30 minutes**
 
-4. Read [`report/report.pdf`](report/report.pdf). Appendix A of the report lists, with links, where each
+4. Read [`report/Group-35_Snehil_Chatterjee_Report.pdf`](report/Group-35_Snehil_Chatterjee_Report.pdf). Appendix A of the report lists, with links, where each
    section's results and code live.
 5. For any section you want to check, open its results folder (table below). Every results folder has the
    same layout:

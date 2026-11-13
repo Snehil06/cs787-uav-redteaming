@@ -2,7 +2,7 @@
 
 CS787 project. Code, data pipeline and every figure below are reproducible from this repository
 (see [Reproducing the results](#5-reproducing-the-results)). Demo video: [demo.mp4](demo.mp4) (2.5 min).
-The academic write-up of the same work is [../report/report.pdf](../report/report.pdf). Commands below are run
+The academic write-up of the same work is [../report/Group-35_Snehil_Chatterjee_Report.pdf](../report/Group-35_Snehil_Chatterjee_Report.pdf). Commands below are run
 from the [../code/](../code/) folder.
 
 ## Summary
