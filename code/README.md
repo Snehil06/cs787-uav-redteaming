@@ -50,6 +50,7 @@ About 2.5 hours on an 8-core CPU with a GPU. It writes simulation data to `data/
 | 6. fidelity checks | `python -m experiments.run_fidelity` | `reports/06_fidelity_checks/` |
 | 7. harden and re-attack | `python -m experiments.run_hardening` | `reports/07_harden_and_reattack/` |
 | demo video | `python -m experiments.make_demo` | `reports/demo.mp4` |
+| end-to-end case study | `python -m experiments.case_study` | `reports/08_case_study/` |
 | report | `python -m tools.paper_figures` then `python -m tools.build_paper` | `paper/report.pdf` |
 
 A single flight can be inspected with `python -m experiments.plot_run`.

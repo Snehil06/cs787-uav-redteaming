@@ -13,6 +13,7 @@ across all runs) → **3_crash_reasons** (why the failures happened).
 | 5 | [05_comparison/](05_comparison/) | done | Final comparison of all methods (random, CMA-ES, cVAE, diffusion). |
 | 6 | [06_fidelity_checks/](06_fidelity_checks/) | done | Are the failures real (finer time step, RRT\*)? |
 | 7 | [07_harden_and_reattack/](07_harden_and_reattack/) | done | Can the findings improve the planner, and what breaks it next? |
+| 8 | [08_case_study/](08_case_study/) | done | **One real case end to end** (PDF storyboard + video): crash created, causes measured, LLM explanation, fix, safe re-flight, new crash |
 
 **The report is [../report/report.pdf](../report/report.pdf); a plain-language write-up is [FINAL_REPORT.md](FINAL_REPORT.md); the 2.5-minute demo is [demo.mp4](demo.mp4).**
 

@@ -591,6 +591,7 @@ def content():
             [repo("README.md"), "Start here: overview, headline numbers, map from paper sections to results"],
             [repo("report/report.pdf"), "This paper"],
             [repo("results/demo.mp4"), "2.5-minute video: example flights and the main results"],
+            [repo("results/08_case_study/case_study.pdf"), "<b>One real case end to end</b>: crash created, causes measured, LLM explanation, fix, re-flown safely, attacked again (also as a video)"],
             [repo("results/README.md"), "Index of all results, stage by stage"],
             [repo(R + "01_random_baseline"), "Random baseline and the real-data scenario prior (Sec. 4.1, Fig. 2)"],
             [repo(R + "02_generators"), "Diffusion vs. cVAE: validity, realism, steering (Sec. 5.2, Table 2)"],
@@ -615,7 +616,8 @@ def content():
              "per experiment; inside each, <i>1_runs</i> has flight pictures and videos, <i>2_results</i> the "
              "charts and CSV tables, and <i>3_crash_reasons</i> the measured causes and explanations of individual "
              "failures. <b>code/</b> holds the full source, laid out as in Figure 1. A quick tour: read the "
-             "top-level README, watch the demo video, then open the results folder of any section of interest. "
+             "top-level README, open the end-to-end case study (one real crash followed from generation to fix "
+             "and re-attack), then the results folder of any section of interest. "
              "All paths below are links.", "body0"),
            Spacer(1, 4),
            booktabs(rows, [1.62 * inch, COLW - 1.62 * inch], "<b>Table A1:</b> Where to find each part of the "

@@ -14,13 +14,17 @@ AAAI 2025).
 **In 5 minutes**
 
 1. Read the headline results below.
-2. Watch [`results/demo.mp4`](results/demo.mp4) (2.5 minutes): example crashes and the main charts.
+2. Open [`results/08_case_study/case_study.pdf`](results/08_case_study/case_study.pdf): **one real case followed
+   through the whole pipeline**: a crash the red team created, its measured causes, Gemini's checked explanation,
+   the fix, the same scenario flown safely, and the next crash the red team finds. Same story as a 75-second video:
+   [`case_study.mp4`](results/08_case_study/case_study.mp4).
+3. Optionally watch [`results/demo.mp4`](results/demo.mp4) (2.5 minutes): more example flights and the main charts.
 
 **In 30 minutes**
 
-3. Read [`report/report.pdf`](report/report.pdf). Appendix A of the report lists, with links, where each
+4. Read [`report/report.pdf`](report/report.pdf). Appendix A of the report lists, with links, where each
    section's results and code live.
-4. For any section you want to check, open its results folder (table below). Every results folder has the
+5. For any section you want to check, open its results folder (table below). Every results folder has the
    same layout:
    - `README.md`: what the experiment asks, how it was run, and what it found, in plain language
    - `1_runs/`: pictures and videos of individual flights
@@ -29,11 +33,11 @@ AAAI 2025).
 
 **To look at or run the code**
 
-5. Read [`code/README.md`](code/README.md): folder layout, setup, and the one command per experiment.
+6. Read [`code/README.md`](code/README.md): folder layout, setup, and the one command per experiment.
    The code folders follow the pipeline in Figure 1 of the report:
    `scenarios/` → `generators/` → `sim/` + `planners/` → `loop/` → `analyst/`, with `experiments/`
    holding one script per experiment.
-6. To reproduce everything: `python -m experiments.run_all --fresh` from inside `code/` (about 2.5 hours;
+7. To reproduce everything: `python -m experiments.run_all --fresh` from inside `code/` (about 2.5 hours;
    only the LLM stage needs a Gemini API key).
 
 ## Headline results (2,000 simulated flights per run, mean of 3 seeds)
@@ -62,6 +66,7 @@ AAAI 2025).
 | 5.1 Main comparison (Table 1, Fig. 3) | [`results/05_comparison/`](results/05_comparison/) | [`code/experiments/run_comparison.py`](code/experiments/run_comparison.py) |
 | 5.5 Are the failures real? | [`results/06_fidelity_checks/`](results/06_fidelity_checks/) | [`code/experiments/run_fidelity.py`](code/experiments/run_fidelity.py) |
 | 5.6 Harden and re-attack (Table 4) | [`results/07_harden_and_reattack/`](results/07_harden_and_reattack/) | [`code/experiments/run_hardening.py`](code/experiments/run_hardening.py) |
+| Appendix A: one case end to end | [`results/08_case_study/`](results/08_case_study/) | [`code/experiments/case_study.py`](code/experiments/case_study.py) |
 
 ## Sources
 
