@@ -1,6 +1,6 @@
 # Generative AI-Based Red-Teaming for Autonomous UAV Navigation
 
-CS787 course project, Snehil Chatterjee. Base paper: DiffScene (Xu et al., ICML 2023 AdvML-Frontiers workshop;
+CS787 Course Project. Snehil Chatterjee (Roll No. 241026), snehil24@iitk.ac.in. Base paper: DiffScene (Xu et al., ICML 2023 AdvML-Frontiers workshop;
 AAAI 2025).
 
 | folder | contents |

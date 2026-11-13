@@ -81,6 +81,18 @@ def repo(path, text=None):
     return link(f"{REPO}/{kind}/main/{path}", text or path)
 
 
+def repo_banner():
+    """Boxed, centred repository link under the title so it is hard to miss."""
+    st = ParagraphStyle("banner", fontName="TNR", fontSize=10, leading=13, alignment=TA_CENTER)
+    p = Paragraph(f"<b>Code, results and demo video:</b> &nbsp;"
+                  f'<a href="{REPO}" color="#1f4e8c"><b>{REPO}</b></a>', st)
+    t = Table([[p]], colWidths=[4.9 * inch])
+    t.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 0.8, colors.HexColor("#1f4e8c")),
+                           ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#eef3fa")),
+                           ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 5)]))
+    return t
+
+
 def H1(text):
     return P(text, "h1")
 
@@ -156,7 +168,7 @@ def algorithm():
 
 
 # ------------------------------------------------------------------------------------------------ layout
-TITLE_H = 3.8 * inch          # title block + teaser figure on page 1
+TITLE_H = 4.3 * inch          # title block + teaser figure on page 1
 def _wide_h():
     from PIL import Image as PILImage
     w, h = PILImage.open(os.path.join(FIG, "fig2_example.png")).size
@@ -224,10 +236,12 @@ def content():
     st += [Spacer(1, 2),
            P("Generative AI-Based Red-Teaming for<br/>Autonomous UAV Navigation", "title"),
            Spacer(1, 8),
-           P("Snehil Chatterjee", "author"),
-           P("CS787 Course Project &nbsp;\u00b7&nbsp; snehilchatterjee1@gmail.com", "affil"),
-           P(f"Code, results and data: {link(REPO)}", "affil"),
-           Spacer(1, 10)]
+           P("CS787 Course Project", "author"),
+           Spacer(1, 2),
+           P("Snehil Chatterjee (Roll No. 241026) &nbsp;\u00b7&nbsp; snehil24@iitk.ac.in", "affil"),
+           Spacer(1, 7),
+           repo_banner(),
+           Spacer(1, 9)]
     p = os.path.join(FIG, "fig1_overview.png")
     from PIL import Image as PILImage
     w, h = PILImage.open(p).size
@@ -291,22 +305,19 @@ def content():
 
     # ---- 2 Related work
     st += [H1("2 &nbsp;Related Work"),
-           P("<b>Safety-critical scenario generation.</b> Surveys of black-box safety validation (Corso et al. 2021) "
-             "and driving-scenario generation (Ding et al. 2023) distinguish data-driven, adversarial and "
-             "knowledge-based generators. AdvSim (Wang et al. 2021) perturbs actor trajectories adversarially; "
-             "STRIVE (Rempe et al. 2022) optimises in the latent space of a learned VAE traffic model; SafeBench "
-             "(Xu et al. 2022) benchmarks such generators. DiffScene (Xu et al. 2023; 2025) replaces the VAE prior "
+           P("<b>Safety-critical scenario generation.</b> A survey of black-box safety validation (Corso et al. 2021) "
+             "distinguishes sampling, optimisation and learned generators. AdvSim (Wang et al. 2021) perturbs actor trajectories adversarially; "
+             "STRIVE (Rempe et al. 2022) optimises in the latent space of a learned VAE traffic model. DiffScene (Xu et al. 2023; 2025) replaces the VAE prior "
              "with a diffusion model and guides each denoising step with safety, functionality and constraint "
              "objectives, reporting more realistic and more transferable scenarios than six baselines. Our work "
              "follows DiffScene's prior-plus-guidance design but targets UAV planners, uses classifier-free guidance "
              "(Ho and Salimans 2021) with closed-loop fine-tuning, and adds causal analysis.", "body0"),
-           P("<b>Generative models.</b> We use DDPMs (Ho, Jain, and Abbeel 2020) with a cosine schedule (Nichol and "
-             "Dhariwal 2021) and FiLM conditioning (Perez et al. 2018), compared against a conditional VAE (Kingma "
-             "and Welling 2014; Sohn, Lee, and Yan 2015). Our search baseline is CMA-ES (Hansen 2016)."),
+           P("<b>Generative models.</b> We use DDPMs (Ho, Jain, and Abbeel 2020) with a cosine schedule and FiLM "
+             "conditioning, compared against a conditional VAE (Sohn, Lee, and Yan 2015). Our search baseline is CMA-ES (Hansen 2016)."),
            P("<b>Planners and explanation.</b> RRT (LaValle 1998) and RRT* (Karaman and Frazzoli 2011) are taken "
-             "unmodified from PythonRobotics (Sakai et al. 2018). Causes are defined interventionally (Pearl 2009). "
-             "Our LLM analyst uses Gemini (Gemini Team 2023) with retrieval of similar past failures in the style of "
-             "retrieval-augmented generation (Lewis et al. 2020); we test whether retrieval or measured "
+             "unmodified from PythonRobotics (Sakai et al. 2018). Causes are defined by intervention. "
+             "Our LLM analyst uses Gemini with retrieval of similar past failures (retrieval-augmented generation); "
+             "we test whether retrieval or measured "
              "interventions make explanations faithful."),
            ]
 
@@ -341,7 +352,7 @@ def content():
              "is blocked. Figure 2 shows a recorded failure.", "body0"),
            P("<b>Real-data prior.</b> The procedural generator that produces the 10,000 training scenarios draws "
              "moving-obstacle speeds from 149,000 one-second track segments of the Stanford Drone Dataset "
-             "(Robicquet et al. 2016), obtained via OpenTraj (Amirian et al. 2020): pedestrians move at a median "
+             "(Robicquet et al. 2016), obtained via OpenTraj: pedestrians move at a median "
              "1.2 m/s and cyclists at 3.5 m/s. Wind and gusts come from 8,753 hourly NOAA ISD observations at San "
              "Francisco airport in 2023 (NOAA NCEI 2023): median wind 4.1 m/s, gusts in 13% of hours."),
            P("<b>Fairness rule.</b> In an early version, search methods learned to spawn obstacles directly in front "
@@ -392,7 +403,7 @@ def content():
            P("<b>Setup.</b> Six methods each fly 2,000 scenarios per run, over three seeds: random sampling of the "
              "procedural generator; CMA-ES maximising F directly over the 46 numbers (population 16, 4 restarts); "
              "the cVAE and the diffusion model asked for maximum difficulty (w = 2), each with and without feedback. "
-             "The cVAE (latent 32, \u03b2 = 0.3 with KL warm-up and free bits (Kingma et al. 2016)) was selected by a "
+             "The cVAE (latent 32, \u03b2 = 0.3 with KL warm-up and free bits) was selected by a "
              "four-point \u03b2 sweep after a first version suffered posterior collapse.", "body0"),
            P("<b>Metrics.</b> Failures; <i>distinct</i> failures (Eq. 2); <i>coverage</i>, the number of occupied "
              "cells of a 384-cell grid over speed, obstacle count, moving share, wind and sensing range; failure "
@@ -548,57 +559,29 @@ def content():
     # ---- references
     st += [H1("References")]
     refs = [
-        "Amirian, J.; Zhang, B.; Castro, F. V.; Baldelomar, J. J.; Hayet, J.-B.; and Pettr\u00e9, J. 2020. OpenTraj: "
-        "Assessing Prediction Complexity in Human Trajectories Datasets. In <i>Asian Conference on Computer Vision "
-        "(ACCV)</i>.",
-        "Corso, A.; Moss, R. J.; Koren, M.; Lee, R.; and Kochenderfer, M. J. 2021. A Survey of Algorithms for "
-        "Black-Box Safety Validation of Cyber-Physical Systems. <i>Journal of Artificial Intelligence Research</i> "
-        "72: 377\u2013428.",
-        "Ding, W.; Xu, C.; Arief, M.; Lin, H.; Li, B.; and Zhao, D. 2023. A Survey on Safety-Critical Driving "
-        "Scenario Generation: A Methodological Perspective. <i>IEEE Transactions on Intelligent Transportation "
-        "Systems</i> 24(7): 6971\u20136988.",
-        "Gemini Team, Google. 2023. Gemini: A Family of Highly Capable Multimodal Models. arXiv:2312.11805.",
+        "Corso, A.; et al. 2021. A Survey of Algorithms for Black-Box Safety Validation of Cyber-Physical Systems. "
+        "<i>Journal of Artificial Intelligence Research</i> 72: 377\u2013428.",
         "Hansen, N. 2016. The CMA Evolution Strategy: A Tutorial. arXiv:1604.00772.",
-        "Ho, J.; Jain, A.; and Abbeel, P. 2020. Denoising Diffusion Probabilistic Models. In <i>Advances in Neural "
-        "Information Processing Systems (NeurIPS)</i>.",
+        "Ho, J.; Jain, A.; and Abbeel, P. 2020. Denoising Diffusion Probabilistic Models. In <i>NeurIPS</i>.",
         "Ho, J.; and Salimans, T. 2021. Classifier-Free Diffusion Guidance. In <i>NeurIPS Workshop on Deep "
-        "Generative Models and Downstream Applications</i>.",
-        "Karaman, S.; and Frazzoli, E. 2011. Sampling-Based Algorithms for Optimal Motion Planning. <i>The "
-        "International Journal of Robotics Research</i> 30(7): 846\u2013894.",
-        "Kingma, D. P.; Salimans, T.; Jozefowicz, R.; Chen, X.; Sutskever, I.; and Welling, M. 2016. Improved "
-        "Variational Inference with Inverse Autoregressive Flow. In <i>NeurIPS</i>.",
-        "Kingma, D. P.; and Welling, M. 2014. Auto-Encoding Variational Bayes. In <i>International Conference on "
-        "Learning Representations (ICLR)</i>.",
-        "LaValle, S. M. 1998. Rapidly-Exploring Random Trees: A New Tool for Path Planning. Technical Report TR "
-        "98-11, Computer Science Department, Iowa State University.",
-        "Lewis, P.; Perez, E.; Piktus, A.; et al. 2020. Retrieval-Augmented Generation for Knowledge-Intensive NLP "
-        "Tasks. In <i>NeurIPS</i>.",
-        "Nichol, A. Q.; and Dhariwal, P. 2021. Improved Denoising Diffusion Probabilistic Models. In "
-        "<i>International Conference on Machine Learning (ICML)</i>.",
-        "NOAA National Centers for Environmental Information. 2023. Integrated Surface Database (ISD), station "
-        "72494023234, San Francisco International Airport. NOAA Open Data Dissemination (AWS).",
-        "Pearl, J. 2009. <i>Causality: Models, Reasoning, and Inference</i>. 2nd ed. Cambridge University Press.",
-        "Perez, E.; Strub, F.; de Vries, H.; Dumoulin, V.; and Courville, A. 2018. FiLM: Visual Reasoning with a "
-        "General Conditioning Layer. In <i>AAAI Conference on Artificial Intelligence</i>.",
-        "Rempe, D.; Philion, J.; Guibas, L. J.; Fidler, S.; and Litany, O. 2022. Generating Useful Accident-Prone "
-        "Driving Scenarios via a Learned Traffic Prior. In <i>IEEE/CVF Conference on Computer Vision and Pattern "
-        "Recognition (CVPR)</i>.",
-        "Robicquet, A.; Sadeghian, A.; Alahi, A.; and Savarese, S. 2016. Learning Social Etiquette: Human "
-        "Trajectory Understanding in Crowded Scenes. In <i>European Conference on Computer Vision (ECCV)</i>.",
-        "Sakai, A.; Ingram, D.; Dinius, J.; Chawla, K.; Raffin, A.; and Paques, A. 2018. PythonRobotics: A Python "
-        "Code Collection of Robotics Algorithms. arXiv:1808.10703.",
+        "Generative Models</i>.",
+        "Karaman, S.; and Frazzoli, E. 2011. Sampling-Based Algorithms for Optimal Motion Planning. <i>IJRR</i> "
+        "30(7): 846\u2013894.",
+        "LaValle, S. M. 1998. Rapidly-Exploring Random Trees: A New Tool for Path Planning. Tech. Rep. 98-11, "
+        "Iowa State University.",
+        "NOAA NCEI. 2023. Integrated Surface Database, station 72494023234 (San Francisco Intl.).",
+        "Rempe, D.; et al. 2022. Generating Useful Accident-Prone Driving Scenarios via a Learned Traffic Prior. "
+        "In <i>CVPR</i>.",
+        "Robicquet, A.; et al. 2016. Learning Social Etiquette: Human Trajectory Understanding in Crowded Scenes. "
+        "In <i>ECCV</i>.",
+        "Sakai, A.; et al. 2018. PythonRobotics: A Python Code Collection of Robotics Algorithms. arXiv:1808.10703.",
         "Sohn, K.; Lee, H.; and Yan, X. 2015. Learning Structured Output Representation Using Deep Conditional "
         "Generative Models. In <i>NeurIPS</i>.",
-        "Wang, J.; Pun, A.; Tu, J.; Manivasagam, S.; Sadat, A.; Casas, S.; Ren, M.; and Urtasun, R. 2021. AdvSim: "
-        "Generating Safety-Critical Scenarios for Self-Driving Vehicles. In <i>CVPR</i>.",
-        "Xu, C.; Ding, W.; Lyu, W.; Liu, Z.; Wang, S.; He, Y.; Hu, H.; Zhao, D.; and Li, B. 2022. SafeBench: A "
-        "Benchmarking Platform for Safety Evaluation of Autonomous Vehicles. In <i>NeurIPS Datasets and "
-        "Benchmarks Track</i>.",
+        "Wang, J.; et al. 2021. AdvSim: Generating Safety-Critical Scenarios for Self-Driving Vehicles. In <i>CVPR</i>.",
         "Xu, C.; Petiushko, A.; Zhao, D.; and Li, B. 2025. DiffScene: Diffusion-Based Safety-Critical Scenario "
-        "Generation for Autonomous Vehicles. In <i>AAAI Conference on Artificial Intelligence</i> 39(8): "
-        "8797\u20138805.",
+        "Generation for Autonomous Vehicles. In <i>AAAI</i> 39(8): 8797\u20138805.",
         "Xu, C.; Zhao, D.; Sangiovanni-Vincentelli, A.; and Li, B. 2023. DiffScene: Diffusion-Based Safety-Critical "
-        "Scenario Generation for Autonomous Vehicles. In <i>2nd AdvML-Frontiers Workshop at ICML</i>.",
+        "Scenario Generation for Autonomous Vehicles. In <i>AdvML-Frontiers Workshop at ICML</i>.",
     ]
     st += [P(r, "ref") for r in refs]
 
