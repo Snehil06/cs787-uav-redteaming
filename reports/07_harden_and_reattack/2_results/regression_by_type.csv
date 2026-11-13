@@ -1,0 +1,64 @@
+type,cases,fixed
+wind / gusts,3571,0.7124054886586391
+wind / gusts + late detection (short sensing range) + sensor noise + UAV too fast to react + unlucky planner randomness,720,0.9638888888888889
+wind / gusts + UAV too fast to react,517,0.9032882011605415
+compound (no single fix),477,0.41509433962264153
+wind / gusts + late detection (short sensing range) + UAV too fast to react,304,0.8881578947368421
+wind / gusts + late detection (short sensing range),290,0.8586206896551725
+late detection (short sensing range) + UAV too fast to react,226,0.8495575221238938
+wind / gusts + late detection (short sensing range) + UAV too fast to react + unlucky planner randomness,208,0.9759615384615384
+UAV too fast to react,181,0.6132596685082873
+late detection (short sensing range),163,0.6993865030674846
+wind / gusts + late detection (short sensing range) + sensor noise + UAV too fast to react,161,0.9130434782608695
+wind / gusts + sensor noise + UAV too fast to react + unlucky planner randomness,153,0.954248366013072
+late detection (short sensing range) + sensor noise + UAV too fast to react + unlucky planner randomness,145,0.9241379310344827
+wind / gusts + late detection (short sensing range) + sensor noise + unlucky planner randomness,137,0.9708029197080292
+wind / gusts + sensor noise + UAV too fast to react,125,0.96
+wind / gusts + UAV too fast to react + unlucky planner randomness,106,0.9622641509433962
+wind / gusts + unlucky planner randomness,99,0.9090909090909091
+wind / gusts + late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,92,0.967391304347826
+wind / gusts + sensor noise,88,0.8522727272727273
+wind / gusts + late detection (short sensing range) + unlucky planner randomness,83,0.9397590361445783
+wind / gusts + late detection (short sensing range) + sensor noise,77,0.8441558441558441
+late detection (short sensing range) + sensor noise + UAV too fast to react,70,0.9428571428571428
+wind / gusts + sensor noise + unlucky planner randomness,66,0.9393939393939394
+late detection (short sensing range) + UAV too fast to react + unlucky planner randomness,61,0.8360655737704918
+wind / gusts + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,43,0.9767441860465116
+sensor noise + UAV too fast to react,33,0.7878787878787878
+late detection (short sensing range) + sensor noise,30,0.8666666666666667
+wind / gusts + late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + unlucky planner randomness,30,1.0
+wind / gusts + pop-up / late-appearing obstacles,29,0.8275862068965517
+sensor noise + UAV too fast to react + unlucky planner randomness,29,0.896551724137931
+late detection (short sensing range) + sensor noise + unlucky planner randomness,26,0.8076923076923077
+wind / gusts + pop-up / late-appearing obstacles + UAV too fast to react,25,0.84
+wind / gusts + late detection (short sensing range) + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,25,0.96
+UAV too fast to react + unlucky planner randomness,21,0.9523809523809523
+late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,20,0.85
+wind / gusts + late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react,17,1.0
+sensor noise,17,0.6470588235294118
+late detection (short sensing range) + unlucky planner randomness,15,0.9333333333333333
+wind / gusts + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,13,1.0
+wind / gusts + sensor noise + pop-up / late-appearing obstacles + unlucky planner randomness,13,0.9230769230769231
+wind / gusts + late detection (short sensing range) + pop-up / late-appearing obstacles,12,0.75
+wind / gusts + sensor noise + pop-up / late-appearing obstacles,11,1.0
+wind / gusts + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react,11,0.8181818181818182
+sensor noise + unlucky planner randomness,11,0.7272727272727273
+pop-up / late-appearing obstacles + UAV too fast to react,11,0.7272727272727273
+sensor noise + pop-up / late-appearing obstacles + unlucky planner randomness,11,0.8181818181818182
+unlucky planner randomness,9,0.8888888888888888
+wind / gusts + pop-up / late-appearing obstacles + unlucky planner randomness,9,0.8888888888888888
+wind / gusts + late detection (short sensing range) + pop-up / late-appearing obstacles + unlucky planner randomness,8,1.0
+late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + unlucky planner randomness,8,1.0
+sensor noise + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,7,0.7142857142857143
+pop-up / late-appearing obstacles,6,0.6666666666666666
+pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,6,0.6666666666666666
+wind / gusts + late detection (short sensing range) + pop-up / late-appearing obstacles + UAV too fast to react,5,0.6
+late detection (short sensing range) + pop-up / late-appearing obstacles + UAV too fast to react,4,0.5
+sensor noise + pop-up / late-appearing obstacles + UAV too fast to react,3,0.6666666666666666
+late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles + UAV too fast to react,3,0.6666666666666666
+late detection (short sensing range) + pop-up / late-appearing obstacles + unlucky planner randomness,2,1.0
+sensor noise + pop-up / late-appearing obstacles,2,1.0
+wind / gusts + late detection (short sensing range) + sensor noise + pop-up / late-appearing obstacles,2,1.0
+pop-up / late-appearing obstacles + unlucky planner randomness,1,1.0
+late detection (short sensing range) + pop-up / late-appearing obstacles,1,0.0
+late detection (short sensing range) + pop-up / late-appearing obstacles + UAV too fast to react + unlucky planner randomness,1,0.0

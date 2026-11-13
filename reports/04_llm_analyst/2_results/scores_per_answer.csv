@@ -1,0 +1,201 @@
+case,variant,model,precision,recall,n_named,n_confirmed,unsupported,contradicted,outcome_ok
+4230,trace only,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+4230,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+4230,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+4230,full,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+2709,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,2,2,False,False,True
+2709,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+2709,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.5,2,2,False,False,True
+2709,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+966,trace only,gemini:gemini-3.1-flash-lite,1.0,0.2,2,5,False,False,True
+966,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+966,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.4,2,5,False,False,True
+966,full,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+5434,trace only,gemini:gemini-3.1-flash-lite,0.0,,2,0,False,True,True
+5434,+ counterfactuals,gemini:gemini-3.1-flash-lite,,,1,0,False,False,True
+5434,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,,3,0,False,True,True
+5434,full,gemini:gemini-3.1-flash-lite,0.0,,2,0,False,True,True
+2487,trace only,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+2487,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+2487,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+2487,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1938,trace only,gemini:gemini-3.1-flash-lite,1.0,1.0,2,1,False,False,True
+1938,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+1938,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,2,1,False,True,True
+1938,full,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+7507,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+7507,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+7507,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+7507,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+635,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+635,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+635,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+635,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+1382,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,4,False,True,True
+1382,+ counterfactuals,gemini:gemini-3.5-flash-lite,1.0,1.0,4,4,False,False,True
+1382,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,3,4,False,True,True
+1382,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+2394,trace only,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,1,3,False,False,True
+2394,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+2394,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,1,3,False,False,True
+2394,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1053,trace only,gemini:gemini-3.1-flash-lite,1.0,0.25,2,4,False,False,True
+1053,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+1053,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+1053,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+3988,trace only,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+3988,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+3988,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+3988,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+1535,trace only,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,2,3,False,False,True
+1535,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1535,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,2,3,False,False,True
+1535,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+7251,trace only,gemini:gemini-3.1-flash-lite,1.0,0.25,1,4,False,False,True
+7251,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+7251,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+7251,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+2853,trace only,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+2853,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+2853,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,2,3,False,False,True
+2853,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+277,trace only,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+277,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+277,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+277,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+2295,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+2295,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+2295,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+2295,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+8646,trace only,gemini:gemini-3.1-flash-lite,0.5,1.0,2,1,False,True,True
+8646,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+8646,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,1.0,2,1,False,True,True
+8646,full,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+4126,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,2,2,False,False,True
+4126,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+4126,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+4126,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+9952,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,3,False,True,True
+9952,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+9952,+ similar cases,gemini:gemini-3.5-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+9952,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+6135,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,1,3,False,True,True
+6135,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+6135,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,1,3,False,True,True
+6135,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1929,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,1,3,False,True,True
+1929,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1929,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,1,3,False,True,True
+1929,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+3076,trace only,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+3076,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+3076,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+3076,full,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+878,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,3,False,True,True
+878,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+878,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+878,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+5089,trace only,gemini:gemini-3.1-flash-lite,1.0,0.2,1,5,False,False,True
+5089,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,5,5,False,False,True
+5089,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.2,1,5,False,False,True
+5089,full,gemini:gemini-3.1-flash-lite,1.0,1.0,5,5,False,False,True
+1807,trace only,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+1807,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+1807,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+1807,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+5230,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,1,1,False,True,True
+5230,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+5230,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,1,1,False,True,True
+5230,full,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+674,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+674,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+674,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+674,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+7043,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+7043,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+7043,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+7043,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+5960,trace only,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+5960,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+5960,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+5960,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+5641,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+5641,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+5641,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+5641,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+3321,trace only,gemini:gemini-3.1-flash-lite,1.0,0.4,2,5,False,False,True
+3321,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+3321,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.2,1,5,False,False,True
+3321,full,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+9338,trace only,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+9338,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+9338,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+9338,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+4983,trace only,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+4983,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+4983,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+4983,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+7930,trace only,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+7930,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+7930,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,2,3,False,False,True
+7930,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+4389,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+4389,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.5,2,2,False,False,True
+4389,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,2,2,False,True,True
+4389,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+68,trace only,gemini:gemini-3.1-flash-lite,,0.0,1,4,False,False,True
+68,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+68,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.25,1,4,False,False,True
+68,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+3690,trace only,gemini:gemini-3.1-flash-lite,1.0,0.16666666666666666,1,6,False,False,True
+3690,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,4,6,False,False,True
+3690,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.16666666666666666,1,6,False,False,True
+3690,full,gemini:gemini-3.1-flash-lite,1.0,0.6666666666666666,4,6,False,False,True
+6334,trace only,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,1,3,False,False,True
+6334,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+6334,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,1,3,False,False,True
+6334,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+3817,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,1,4,False,True,True
+3817,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+3817,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,1,4,False,True,True
+3817,full,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+7271,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,1,5,False,True,True
+7271,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+7271,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,1,5,False,True,True
+7271,full,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+9587,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+9587,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+9587,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+9587,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+542,trace only,gemini:gemini-3.1-flash-lite,1.0,0.3333333333333333,1,3,False,False,True
+542,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+542,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.3333333333333333,2,3,False,True,True
+542,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+2844,trace only,gemini:gemini-3.1-flash-lite,0.0,0.0,2,3,False,True,True
+2844,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+2844,+ similar cases,gemini:gemini-3.1-flash-lite,0.0,0.0,2,3,False,True,True
+2844,full,gemini:gemini-3.1-flash-lite,1.0,1.0,3,3,False,False,True
+5460,trace only,gemini:gemini-3.1-flash-lite,0.5,1.0,2,1,False,True,True
+5460,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+5460,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,1.0,2,1,False,True,True
+5460,full,gemini:gemini-3.1-flash-lite,1.0,1.0,1,1,False,False,True
+757,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,1,2,False,False,True
+757,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+757,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.5,2,2,False,True,True
+757,full,gemini:gemini-3.1-flash-lite,1.0,1.0,2,2,False,False,True
+6532,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+6532,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+6532,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+6532,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+4888,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+4888,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.75,3,4,False,False,True
+4888,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+4888,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+1603,trace only,gemini:gemini-3.1-flash-lite,1.0,0.2,1,5,False,False,True
+1603,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+1603,+ similar cases,gemini:gemini-3.1-flash-lite,1.0,0.4,2,5,False,False,True
+1603,full,gemini:gemini-3.1-flash-lite,1.0,0.8,4,5,False,False,True
+2571,trace only,gemini:gemini-3.1-flash-lite,1.0,0.5,2,4,False,False,True
+2571,+ counterfactuals,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True
+2571,+ similar cases,gemini:gemini-3.1-flash-lite,0.5,0.25,2,4,False,True,True
+2571,full,gemini:gemini-3.1-flash-lite,1.0,1.0,4,4,False,False,True

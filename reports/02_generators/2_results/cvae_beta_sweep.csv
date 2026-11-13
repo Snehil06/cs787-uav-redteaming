@@ -1,0 +1,6 @@
+model,beta,validity,w_distance
+cvae,0.02,0.225,0.314
+cvae,0.05,0.315,0.309
+cvae,0.1,0.388,0.362
+cvae,0.3,0.502,0.362
+diffusion,,0.875,0.169

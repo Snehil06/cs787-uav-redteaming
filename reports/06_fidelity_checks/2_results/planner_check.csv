@@ -1,0 +1,2 @@
+rrt_failure_rate,rrtstar_failure_rate,fail_both,transfer_random baseline failures,transfer_diffusion + feedback failures
+0.1215,0.124,222,0.772,0.77

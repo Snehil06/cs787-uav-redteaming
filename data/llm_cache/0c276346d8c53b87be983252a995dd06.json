@@ -1,0 +1,1 @@
+{"outcome": "failure", "primary_factors": [{"factor": "wind", "evidence_field": "trace.max_wind_felt_m_s"}], "failure_type": "wind / gusts", "explanation": "The UAV collided with an obstacle at 3.1 seconds due to a 5.7 m/s crosswind. The wind force likely pushed the UAV off its planned trajectory, resulting in a minimum clearance of -0.13 meters.", "confidence": "high"}

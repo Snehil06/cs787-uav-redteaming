@@ -1,0 +1,13 @@
+# Python 3.11+ (developed with 3.12 on Windows 11, NVIDIA GPU; CPU also works, slower training)
+numpy>=2.0
+pandas>=2.2
+pyarrow>=15          # parquet files in data/
+scikit-learn>=1.4    # nearest-neighbour retrieval in the LLM analyst
+matplotlib>=3.8
+pillow>=10
+torch>=2.2           # diffusion model and cVAE (install the CUDA build from pytorch.org for GPU)
+cma>=3.3             # CMA-ES baseline
+google-genai>=1.0    # Gemini API for the LLM analyst (needs GEMINI_API_KEY)
+imageio-ffmpeg>=0.4  # ffmpeg binary for the .mp4 flight videos
+reportlab>=4.0       # builds paper/report.pdf
+# optional: ollama   # local-LLM fallback for the analyst, not used for the reported results

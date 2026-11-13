@@ -1,0 +1,15 @@
+,cvae,diffusion
+wind,2,146
+appears_in_reach,69,102
+goal_outside_map,2,78
+start_outside_map,4,63
+speed,0,13
+on_goal,3,9
+on_start,1,7
+start_goal_too_close,117,2
+static_overlap,0,2
+noise_std,4,0
+gust,1283,0
+sense_range,3,0
+t_appear,253,0
+uav_speed,2,0

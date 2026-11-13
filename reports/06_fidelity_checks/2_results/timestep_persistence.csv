@@ -1,0 +1,7 @@
+set,dt,still_fails
+random baseline failures,0.05,0.778
+random baseline failures,0.025,0.774
+random baseline failures,0.0125,0.762
+diffusion + feedback failures,0.05,0.782
+diffusion + feedback failures,0.025,0.776
+diffusion + feedback failures,0.0125,0.762

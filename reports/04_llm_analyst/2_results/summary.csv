@@ -1,0 +1,5 @@
+variant,precision,recall,contradicted,unsupported,outcome_ok
+trace only,0.6326530612244898,0.33843537414965985,0.44,0.0,1.0
++ counterfactuals,1.0,0.9224489795918368,0.0,0.0,1.0
++ similar cases,0.59,0.36292517006802716,0.6,0.0,1.0
+full,0.98,0.9649659863945578,0.02,0.0,1.0
