@@ -238,7 +238,7 @@ def content():
            Spacer(1, 8),
            P("CS787 Course Project", "author"),
            Spacer(1, 2),
-           P("Snehil Chatterjee (Roll No. 241026) &nbsp;\u00b7&nbsp; snehil24@iitk.ac.in", "affil"),
+           P("Snehil Chatterjee (241026) &nbsp;\u00b7&nbsp; snehil24@iitk.ac.in", "affil"),
            Spacer(1, 7),
            repo_banner(),
            Spacer(1, 9)]
