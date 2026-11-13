@@ -1,1 +1,0 @@
-{"outcome": "failure", "primary_factors": [{"factor": "wind", "evidence_field": "trace.max_wind_felt_m_s"}], "failure_type": "out_of_bounds", "explanation": "The UAV failed due to an out-of-bounds condition while navigating in a 7.2 m/s crosswind. The flight lasted 8.5 seconds, with the UAV unable to reach the goal and ending 9.3 meters away.", "confidence": "high"}

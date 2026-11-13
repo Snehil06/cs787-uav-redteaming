@@ -1,17 +1,20 @@
-# Closed-Loop Diffusion Red-Teaming for UAV Path Planners
+# CS787 Project Submission: Closed-Loop Diffusion Red-Teaming for UAV Path Planners
 
-**CS787 course project, Snehil Chatterjee.** A conditional diffusion model generates scenarios that make an
-unmodified open-source RRT / RRT\* UAV planner fail. A simulator decides what happens, counterfactual re-runs
-measure *why* each failure happened, an LLM (Gemini) explains it under a citation check, and the measured
-causes drive targeted fixes to the planner stack, which is then attacked again. Base paper: DiffScene
-(Xu et al., ICML 2023 workshop; AAAI 2025).
+Snehil Chatterjee. Base paper: DiffScene (Xu et al., ICML 2023 AdvML-Frontiers workshop; AAAI 2025).
 
-| start here | what it is |
+| folder | contents |
 |---|---|
-| [`paper/report.pdf`](paper/report.pdf) | **The report**: a 6-page research paper (method, experiments, limitations, references) |
-| [`reports/demo.mp4`](reports/demo.mp4) | 2.5-minute demo video of flights and results |
-| [`reports/README.md`](reports/README.md) | All results, stage by stage, with flight videos, charts and crash causes |
-| [`reports/FINAL_REPORT.md`](reports/FINAL_REPORT.md) | The same results as a plain-language write-up |
+| [`report/`](report/) | **[report.pdf](report/report.pdf)**: the project report, written as a 6-page research paper |
+| [`results/`](results/) | all experimental outputs, one folder per stage, plus the [demo video](results/demo.mp4) and a plain-language [FINAL_REPORT.md](results/FINAL_REPORT.md). Start at [results/README.md](results/README.md) |
+| [`code/`](code/) | the complete source code that produces everything in `results/` and `report/`. See [code/README.md](code/README.md) |
+
+## What the project does
+
+A conditional diffusion model generates scenarios (obstacles, wind, sensing limits) that make an unmodified
+open-source RRT / RRT\* UAV planner fail. A simulator decides what happens. Each failure is re-flown with one
+factor changed at a time to measure *why* it happened, an LLM (Gemini) explains it under a citation check,
+and the measured causes drive targeted fixes to the planner stack, which is then attacked again.
+Scenario statistics follow real data (Stanford Drone Dataset obstacle speeds, NOAA wind records).
 
 ## Headline results (2,000 simulated flights per run, mean of 3 seeds)
 
@@ -23,66 +26,19 @@ causes drive targeted fixes to the planner stack, which is then attacked again. 
 | **Diffusion + feedback (ours)** | **552** | 109 | 35 |
 
 - Diffusion is 87% valid vs. 50% for the best cVAE, and 2.1x closer to the real scenario distribution.
-- Measured counterfactuals raise the LLM's recall of true crash causes from 34% (flight log only) to 96%;
-  retrieving similar past cases does not help.
+- Measured counterfactuals raise the LLM's recall of true crash causes from 34% (flight log only) to 96%.
 - Failures persist at 4x finer simulation steps, and 77% also break RRT\*.
 - Fixes derived from the measured causes survive 79% of past failures and cut the failure rate from 12.0% to
   4.7%; re-attacking, the red team still finds 2.1x more failures than random sampling.
 
-## Repository layout
+## How the results map to the report
 
-The code follows the pipeline in the paper's Figure 1:
-
-```
-scenarios/     scenario format (46-number vector), validity + fairness rules, procedural generator,
-               real-data statistics (Stanford Drone Dataset speeds, NOAA wind) -> real_stats.json
-sim/           2D UAV simulator: dynamics, wind and gusts, delayed noisy sensing, replanning, hardening options
-planners/      adapter around the vendored, unmodified PythonRobotics RRT / RRT* (MIT licence, see LICENSE)
-generators/    conditional diffusion model (DDPM + classifier-free guidance), conditional VAE, CMA-ES,
-               scenario <-> model-space codec
-loop/          failure score F, closed-loop red-teaming (Algorithm 1), metrics (distinct, coverage, types)
-analyst/       counterfactual re-runs (measured causes), evidence records, Gemini LLM analyst + grounding check
-experiments/   one script per stage; run_all.py runs everything in order
-viz/           flight pictures, MP4 videos and charts used in reports/
-tools/         paper figures and PDF builder (paper/report.pdf)
-models/        trained diffusion model and cVAE (v2 run)
-data/          processed results of the reported run (see data/README.md)
-reports/       outputs, one folder per stage: 1_runs (videos) -> 2_results (charts, CSVs) -> 3_crash_reasons
-paper/         report.pdf and its figures
-```
-
-## Running it
-
-```bash
-python -m venv .venv && .venv/Scripts/activate          # Windows; use .venv/bin/activate on Linux/macOS
-pip install -r requirements.txt
-```
-
-Rebuild the outputs from the included data and models (minutes, no API key needed):
-
-```bash
-python -m experiments.report_comparison     # reports/03 and 05
-python -m tools.paper_figures               # paper/figures
-python -m tools.build_paper                 # paper/report.pdf
-python -m experiments.make_demo             # reports/demo.mp4
-```
-
-Re-run the full pipeline from scratch (about 2.5 hours on an 8-core CPU + GPU; resumable):
-
-```bash
-set GEMINI_API_KEY=...                      # free key from https://aistudio.google.com; only the LLM stage needs it
-python -m experiments.run_all --fresh
-```
-
-Stages, in order: seed data → stage 1 report → train generators → cVAE β sweep → stage 2 report → method
-comparison → stage 3/5 reports → LLM ablation → fidelity checks → harden and re-attack. Progress is logged to
-`data/run_all.log`; running `python -m experiments.run_all` again resumes after the last finished stage.
-A single flight can be inspected with `python -m experiments.plot_run`.
-
-## Acknowledgements and data sources
-
-- Planner: [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics) (Sakai et al., MIT licence).
-- Obstacle speeds: Stanford Drone Dataset (Robicquet et al., ECCV 2016), via
-  [OpenTraj](https://github.com/crowdbotp/OpenTraj).
-- Wind: NOAA Integrated Surface Database, station 72494023234 (San Francisco Intl.), 2023.
-- LLM: Google Gemini API, free tier (`gemini-3.1-flash-lite`).
+| report section | results folder |
+|---|---|
+| 4.1 Simulator, real-data prior; Fig. 2 | [`results/01_random_baseline/`](results/01_random_baseline/) |
+| 5.2 Why diffusion rather than a VAE (Table 2, Fig. 4a) | [`results/02_generators/`](results/02_generators/) |
+| 5.3 Does feedback help? (Fig. 4b) | [`results/03_red_team_loop/`](results/03_red_team_loop/) |
+| 5.4 LLM faithfulness (Table 3, Fig. 5) | [`results/04_llm_analyst/`](results/04_llm_analyst/) |
+| 5.1 Main comparison (Table 1, Fig. 3) | [`results/05_comparison/`](results/05_comparison/) |
+| 5.5 Are the failures real? | [`results/06_fidelity_checks/`](results/06_fidelity_checks/) |
+| 5.6 Harden and re-attack (Table 4) | [`results/07_harden_and_reattack/`](results/07_harden_and_reattack/) |

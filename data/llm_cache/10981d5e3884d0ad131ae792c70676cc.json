@@ -1,1 +1,0 @@
-{"outcome": "failure", "primary_factors": [{"factor": "wind", "evidence_field": "trace.max_wind_felt_m_s"}], "failure_type": "wind / gusts", "explanation": "The flight ended in a collision with a minimum clearance of -0.03 meters. The UAV was subjected to a crosswind of 6.2 m/s, which significantly impacted its ability to maintain a safe trajectory.", "confidence": "high"}

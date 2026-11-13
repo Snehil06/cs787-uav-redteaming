@@ -1,7 +1,7 @@
 ﻿__pycache__/
 .venv/
-data/external/
-data/run_all.log
-data/run_all_done.txt
-.ipynb_checkpoints/
+code/data/
+code/models/
+code/reports/
+code/paper/
 
