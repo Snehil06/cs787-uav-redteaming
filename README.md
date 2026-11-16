@@ -18,7 +18,7 @@ AAAI 2025).
    through the whole pipeline**: a crash the red team created, its measured causes, Gemini's checked explanation,
    the fix, the same scenario flown safely, and the next crash the red team finds. Same story as a 75-second video:
    [`case_study.mp4`](results/08_case_study/case_study.mp4).
-3. Optionally watch [`results/demo.mp4`](results/demo.mp4) (2.5 minutes): more example flights and the main charts.
+3. Optionally watch [`results/demo.mp4`](results/demo.mp4) (3 minutes): more example flights and the main charts.
 
 **In 30 minutes**
 

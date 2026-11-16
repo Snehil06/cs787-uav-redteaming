@@ -1,7 +1,7 @@
 # Generative AI-Based Red-Teaming for Autonomous UAV Navigation: Final Report
 
 CS787 project. Code, data pipeline and every figure below are reproducible from this repository
-(see [Reproducing the results](#5-reproducing-the-results)). Demo video: [demo.mp4](demo.mp4) (2.5 min).
+(see [Reproducing the results](#5-reproducing-the-results)). Demo video: [demo.mp4](demo.mp4) (3 min).
 The academic write-up of the same work is [../report/Group-35_Snehil_Chatterjee_Report.pdf](../report/Group-35_Snehil_Chatterjee_Report.pdf). Commands below are run
 from the [../code/](../code/) folder.
 
@@ -222,7 +222,7 @@ python -m experiments.report_comparison                                       # 
 python -m experiments.run_llm_ablation --n 50                                 # reports/04 (needs GEMINI_API_KEY)
 python -m experiments.run_fidelity                                            # reports/06
 python -m experiments.run_hardening                                           # reports/07
-python -m experiments.make_demo                                               # reports/demo.mp4
+python -m experiments.luck_control && python -m experiments.make_demo           # reports/demo.mp4
 ```
 
 Every stage folder has a README and reads in the same order: `1_runs` (videos and flight pictures) →
